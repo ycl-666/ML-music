@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>墨灵在线音乐</title>
+    <!-- <link rel="shortcut icon" href="images/logo/title" /> -->
+    <link rel="icon" href="../images/logo/icon.png">
+    <!-- jquery -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 样式 -->
+    <link rel="stylesheet" href="../css/btcss/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/music.css">
+</head>
+
+<body>
+
+    <div id="bkg666" class="wrap">
+        <!-- style="background: url(bkgList[bkgindex]);" -->
+        <!-- <div class="bkg">
+            <img :src="bkgList[bkgindex]" alt="">
+        </div> -->
+        <div class="change" @click="changebkg">
+            <img src="../images/logo/change.png" alt="">
+        </div>
+        <div class="words_wrap">
+            <div class="words" :style="lyricMove">
+                <!-- <b>{{ songWords }}</b> -->
+                <!-- <el-row v-for="(item,index) in lyrics" :key="index"
+                    :style="{'font-size': (index==currentRow ? '1.3rem':'.9rem')}" class="lyric-row">{{item.text}}
+                </el-row> -->
+                <!-- <ul>
+                    <li v-for="(item,index) in lyrics "
+                        :style="{'font-size': (index==currentRow ? '1.95rem':'1.35rem'),'text-align': center}">
+                        {{item.songWords}}
+                    </li>
+                </ul> -->
+                <!-- background: linear-gradient(to left, #FD8112, #0085CA); -->
+                <div v-for="(item,index) in lyrics "
+                    :style="{'font-size': (index==currentRow ? '30px':'25px'),'color': (index==currentRow ? '#e536b3':'#ffff24')}">
+                    {{item.songWords}}
+                </div>
+
+                <!-- <ul :style="{'font-size': (index==currentRow ? '1.3rem':'.9rem')}">{{item.songWords}}</ul> -->
+
+            </div>
+        </div>
+        <div class="play_wrap" id="player">
+            <div class="search_bar">
+                <img src="../images/logo/miniicon.png" alt="" />
+                <!-- 搜索歌曲 -->
+                <div> <input type="text" placeholder="搜索来自星星的音乐" autocomplete="on" v-model="query"
+                        @keyup.enter="searchMusic();" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 18 18" @click="searchMusic();">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </div>
+
+            </div>
+            <div class="center_con">
+                <!-- 搜索歌曲列表 -->
+                <div class='song_wrapper' ref='song_wrapper'>
+                    <ul class="song_list">
+                        <li v-for="item in musicList">
+                            <!-- 点击放歌 -->
+                            <a href="javascript:;" @click='playMusic(item.id) '><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="16" height="16" fill="currentColor" class="bi bi-caret-right-square"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                    <path
+                                        d="M5.795 12.456A.5.5 0 0 1 5.5 12V4a.5.5 0 0 1 .832-.374l4.5 4a.5.5 0 0 1 0 .748l-4.5 4a.5.5 0 0 1-.537.082z" />
+                                </svg></a>
+                            <b>{{item.name}}</b>
+                            <span>
+                                <i @click="playMv(item.mvid)" v-if="item.mvid!=0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-badge-hd" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7.396 11V5.001H6.209v2.44H3.687V5H2.5v6h1.187V8.43h2.522V11h1.187zM8.5 5.001V11h2.188c1.811 0 2.685-1.107 2.685-3.015 0-1.894-.86-2.984-2.684-2.984H8.5zm1.187.967h.843c1.112 0 1.622.686 1.622 2.04 0 1.353-.505 2.02-1.622 2.02h-.843v-4.06z" />
+                                        <path
+                                            d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z" />
+                                    </svg>
+                                </i>
+                            </span>
+                        </li>
+
+                    </ul>
+                    <!-- <img src="https://i.loli.net/2020/03/23/dor23bhZtIvK17X.png" class="switch_btn" alt=""> -->
+                </div>
+                <!-- 歌曲信息容器 -->
+                <div class="player_con" :class="{playing:isPlay}">
+                    <img src="../images/logo/player3.png" class="play_bar" />
+                    <!-- 黑胶碟片 -->
+                    <img src="../images/logo/player2.png" class="disc autoRotate" />
+                    <img :src="coverUrl==''?'../images/logo/player1.jpg':coverUrl" class="cover autoRotate" />
+                    <!-- <img src="../images/logo/player1.jpg" alt=""> -->
+                </div>
+                <!-- 评论容器 -->
+                <div class="comment_wrapper" ref='comment_wrapper'>
+                    <h5 class='title'>热门留言</h5>
+                    <div class='comment_list'>
+                        <dl v-for="item in hotComments">
+                            <dt>
+                                <img :src="item.user.avatarUrl" alt="" />
+                            </dt>
+                            <dd class="name">{{item.user.nickname}}</dd>
+                            <dd class="detail">
+                                {{item.content}}
+                            </dd>
+                        </dl>
+                    </div>
+                    <!-- <img src="https://i.loli.net/2020/03/23/dor23bhZtIvK17X.png" class="right_line"> -->
+                </div>
+            </div>
+            <div class="audio_con">
+                <audio ref='audio' @play="play" @pause="pause" :src="musicUrl" controls autoplay loop
+                    class="myaudio"></audio>
+            </div>
+            <div class="video_con" v-show="showVideo">
+                <video ref='video' :src="mvUrl" controls="controls"></video>
+                <div class="mask" @click="closeMv"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 官网提供的 axios 在线地址 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/music.js"></script>
+    <script src="../js/btjs/bootstrap.bundle.js"></script>
+    <script src="../js/btjs/bootstrap.min.js"></script>
+    <script>
+        // var dd = document.getElementById("bkg666").style.background = " url(" + {{bkgurl}} + ")";
+        // $("#bkg666").css("background: url(" + bkgurl + ")")
+    </script>
+</body>
+
+</html>
