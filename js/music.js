@@ -112,6 +112,8 @@ var app = new Vue({
         },
         // 播放歌曲
         playMusic(musicId) {
+
+
             // 获取歌曲url
             axios.get('/song/url?id=' + musicId).then(response => {
                 // 保存歌曲url地址
@@ -122,6 +124,7 @@ var app = new Vue({
                 // console.log(response)
                 // 保存热门评论
                 this.hotComments = response.data.hotComments
+                console.log(this.hotComments)
 
             })
             // 获取歌曲封面

@@ -13,17 +13,25 @@
     <!-- 样式 -->
     <link rel="stylesheet" href="../css/btcss/bootstrap.min.css">
     <link rel="stylesheet" href="../css/music.css">
+
 </head>
 
 <body>
+
+
 
     <div id="bkg666" class="wrap">
         <!-- style="background: url(bkgList[bkgindex]);" -->
         <!-- <div class="bkg">
             <img :src="bkgList[bkgindex]" alt="">
         </div> -->
-        <div class="change" @click="changebkg">
-            <img src="../images/logo/change.png" alt="">
+        <div class="up">
+            <div class="change" @click="changebkg">
+                <img src="../images/logo/change.png" alt="">
+            </div>
+            <div class="todolist" @click="changebkg">
+                <a href="todolist.html"><img src="../images/logo/todolist.png" alt=""></a>
+            </div>
         </div>
         <div class="words_wrap">
             <div class="words" :style="lyricMove">
@@ -59,6 +67,7 @@
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg>
                 </div>
+
 
             </div>
             <div class="center_con">
@@ -106,9 +115,9 @@
                     <div class='comment_list'>
                         <dl v-for="item in hotComments">
                             <dt>
-                                <img :src="item.user.avatarUrl" alt="" />
+                                <img :src="item.avatarUrl" alt="" />
                             </dt>
-                            <dd class="name">{{item.user.nickname}}</dd>
+                            <dd class="name">{{item.nickname}}</dd>
                             <dd class="detail">
                                 {{item.content}}
                             </dd>
